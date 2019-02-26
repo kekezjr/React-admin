@@ -10,6 +10,8 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './pages/login';
 import Admin from './pages/admin';
 
+import './assets/less/index.less';
+
 export default class App extends Component {
   render() {
     return (
