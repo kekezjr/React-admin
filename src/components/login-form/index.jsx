@@ -1,19 +1,26 @@
 import React,{Component} from 'react';
-
 import {Form, Icon, Input, Button,message} from 'antd';
+
+import PropTypes from 'prop-types';
+
+//引入的文件
+
+
 const Item = Form.Item;
 
-
 class LoginForm extends Component{
+  static typeProps = {
+    login:PropTypes.func.isRequired
+  }
 
   //自定义校验（用if语句判断）
   handlePassWord = (rule,value,callback) =>{
     if(!value){
       callback('请输入密码');
-    }else if(value.length <6){
-      callback('密码不能低于6位数');
-    }else if(value.length>30){
-      callback('密码不能高于30位数');
+    }else if(value.length <5){
+      callback('密码不能低于5位数');
+    }else if(value.length>15){
+      callback('密码不能高于15位数');
     }else if(!/^[a-zA-Z0-9_]+$/){
       callback('密码必须为大小写字母，数字或下划线');
     }else{
@@ -29,8 +36,14 @@ class LoginForm extends Component{
   //  检查当前表单是否通过校验
     validateFields((error, values) => {
       if (!error) {
-        //
-        console.log('Received values of form: ', values);
+        //校验通过
+        console.log('收集表单数据: ', values);
+
+      //  发送ajax请求
+        const {username,password} = values;
+      //  调用login方法,
+        this.props.login(username,password);
+
       }else{
 
       //resetFields 重置一组输入控件的值（为 initialValue）与状态，如不传入参数，则重置所有组件
@@ -41,9 +54,9 @@ class LoginForm extends Component{
 
         const e = Object.values(error);
         console.log(e);   //errors为一个数组
-        // const errMsg = Object.values(error).reduce((prev, curr) => prev + curr.errors[0].message + ' ', '')
+        const errMsg = Object.values(error).reduce((prev, curr) => prev + curr.errors[0].message + ' ', '')
         //提示错误
-       // message.error(errMsg);
+       message.error(errMsg);
       }
     });
   }
