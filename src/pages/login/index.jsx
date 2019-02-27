@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 
 //引入的图片
-import logo from './logo.png';
+import logo from '../../assets/images/logo.png';
 //引入文件
 import './index.less';
 import LoginForm from '../../components/login-form/index'
 import {reqLogin} from '../../api'
-
-
-
-
 
 
 export default class Login extends Component {
