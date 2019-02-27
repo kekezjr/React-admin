@@ -1,20 +1,59 @@
 import React,{Component} from 'react';
 import {Menu,Icon} from 'antd';
 
-import {NavLink} from 'react-router-dom';
+import {NavLink,withRouter} from 'react-router-dom';
 
 
 //引入文件+图片
 import logo from '../../assets/images/logo.png';
 import './index.less';
+import menuList from '../../config/menuConfig';
 
 
 //定义
 const SubMenu = Menu.SubMenu;
 const Item = Menu.Item;
 
-export default class LeftNav extends Component{
+class LeftNav extends Component{
+
+  componentWillMount(){
+    this.menu = this.createMenu(menuList);
+    // console.log(menu);
+  }
+
+  createMenu = (menu) =>{
+    return menu.map(item =>{
+      //判断是否有子菜单
+      if(item.children){
+        //得到当前路径
+        const {pathname} = this.props.location;
+        const result = item.children.find(item => item.key === pathname);
+        if(result){
+          this.open = item.key;
+        }
+
+
+        {/*二级菜单*/}
+        return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
+          {
+            this.createMenu(item.children)
+          }
+        </SubMenu>
+      }else{
+        //一级菜单
+        return <Item key={item.key}>
+          <NavLink to={item.key}>
+            <Icon type={item.icon} />
+            <span>{item.title}</span>
+          </NavLink>
+        </Item>
+      }
+
+    })
+  }
+
   render(){
+    const {pathname} = this.props.location;
     return(
       <div className="left-nav">
         <header>
@@ -24,32 +63,20 @@ export default class LeftNav extends Component{
           </NavLink>
         </header>
 
-        <Menu theme="dark" mode="inline">
-          {/*一级菜单*/}
-          <Item>
-            <NavLink to='/home'>
-              <Icon type="home" />
-              <span>首页</span>
-            </NavLink>
-          </Item>
-
-          {/*二级菜单*/}
-          <SubMenu title={<span><Icon type="appstore" /><span>商品</span></span>}>
-            <Item>
-              <NavLink to='/category'>
-                <Icon type="bars" />
-                <span>品类管理</span>
-              </NavLink>
-            </Item>
-            <Item>
-              <NavLink to='/product'>
-                <Icon type="tool" />
-                <span>商品管理</span>
-              </NavLink>
-            </Item>
-          </SubMenu>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={[pathname]}
+          defaultOpenKeys={[this.open]}
+        >
+          {
+           this.menu
+          }
         </Menu>
       </div>
     )
   }
 }
+
+export default withRouter(LeftNav);
+
