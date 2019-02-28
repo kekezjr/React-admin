@@ -1,4 +1,42 @@
 .header{
-  height: 150px;
-  background-color: deeppink;
+  //height: 120px;
+  //background-color: grey;
+  .header-top{
+    text-align: right;
+    padding: 25px;
+    border-bottom: 1px solid #1DA57A;
+    a{
+      margin-left: 30px;
+    }
+  }
+  .header-bottom{
+    display: flex;
+    align-items: center;
+    .header-bottom-left{
+      font-size: 18px;
+      padding: 5px 0;
+      text-align: center;
+      &::after{
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -15px;
+        transform: translateX(-50%);
+        border-top: 15px solid #fff;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+      }
+    }
+    .header-bottom-right{
+      padding: 5px;
+      text-align: right;
+      img{
+        height: 20px;
+        margin:0 10px 0 15px;
+      }
+      span{
+        margin-right: 10px;
+      }
+    }
+  }
 }

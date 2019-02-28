@@ -20,6 +20,7 @@ import Pie from '../charts/pie';
 import MemoryUtils from '../../utils/memoryUtils';
 
 export default class Admin extends Component {
+
   render () {
     //保证首次渲染和重新渲染都做登录验证
     // const user = getItem();
