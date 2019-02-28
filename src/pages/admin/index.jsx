@@ -16,10 +16,19 @@ import Role from '../role';
 import Bar from '../charts/bar';
 import Line from '../charts/line';
 import Pie from '../charts/pie';
-
+// import {getItem} from '../../utils/storageUtils'
+import MemoryUtils from '../../utils/memoryUtils';
 
 export default class Admin extends Component {
   render () {
+    //保证首次渲染和重新渲染都做登录验证
+    // const user = getItem();
+    const user = MemoryUtils.user;
+    if(!user || !user._id){
+     return <Redirect to='/login' />
+    }
+
+
     return (
       <Row className="admin-row">
         <Col span={4}>

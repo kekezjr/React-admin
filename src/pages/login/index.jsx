@@ -4,8 +4,10 @@ import React, {Component} from 'react';
 import logo from '../../assets/images/logo.png';
 //引入文件
 import './index.less';
-import LoginForm from '../../components/login-form/index'
-import {reqLogin} from '../../api'
+import LoginForm from '../../components/login-form/index';
+import {reqLogin} from '../../api';
+import {setItem} from '../../utils/storageUtils';
+import MemoryUtils from '../../utils/memoryUtils';
 
 
 export default class Login extends Component {
@@ -23,6 +25,10 @@ export default class Login extends Component {
 
     if(result.status === 0){
       //用户登录成功 保存用户信息
+      setItem(result.data);
+
+      //在内存中储存一份
+      MemoryUtils.user = result.data;
 
 
       //  跳转到admin页面
