@@ -46,3 +46,9 @@ export const Weather = city =>{
 
 //请求category数据
 export const reqCategory = parentId => ajax(prefix + '/manage/category/list',{parentId});
+
+//获取添加分类数据
+export const reqAddCategory = (parentId,categoryName)=> ajax(prefix + '/manage/category/add',{parentId,categoryName},'POST');
+
+//更新更新品类名称
+export const reqUpDataCategoryName = (categoryId,categoryName) =>ajax(prefix + '/manage/category/update',{categoryId,categoryName},'POST');

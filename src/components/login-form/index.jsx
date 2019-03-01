@@ -63,7 +63,7 @@ class LoginForm extends Component{
 
 
   render(){
-    const {getFieldDecorator,getFieldValue} = this.props.form;
+    const {getFieldDecorator} = this.props.form;
     //当前输入框得到的值
     // console.log(getFieldValue('username'));
     //getFieldDecorator（输入框的标识名称，配置对象）

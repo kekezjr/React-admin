@@ -32,8 +32,6 @@ class LeftNav extends Component{
           this.open = item.key;
         }
 
-
-        {/*二级菜单*/}
         return <SubMenu key={item.key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
           {
             this.createMenu(item.children)
