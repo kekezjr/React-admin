@@ -1,8 +1,37 @@
 import React,{Component} from 'react';
-import {Card,Button,Icon,Table} from 'antd';
+import {Card,Button,Icon,Table,message} from 'antd';
+
+//引入文件
+import {reqCategory} from '../../api';
 
 
 export default class Category extends Component{
+
+  state = {
+    categories: []
+  }
+
+  //获取Category列表
+  getCategories = async parentId =>{
+  //  发送请求
+    const result = await reqCategory(parentId)
+
+    if(result.status === 0){
+    //  获取列表成功
+      this.setState({
+        // categories(result.data);
+        categories : result.data
+      })
+
+    }else{
+      message.error('列表请求失败')
+    }
+  }
+
+
+  componentDidMount(){
+    this.getCategories('0');
+  }
 
 
 
@@ -23,35 +52,27 @@ export default class Category extends Component{
         </div>
       }
     }];
-    const data = [{
-      key: '1',
-      name: 'John Brown1',
-    }, {
-      key: '2',
-      name: 'Jim Green1',
-    }, {
-      key: '3',
-      name: 'Joe Black1',
-    },{
-      key: '4',
-      name: 'John Brown2',
-    }, {
-      key: '5',
-      name: 'Jim Green2',
-    }, {
-      key: '6',
-      name: 'Joe Black2',
-    },{
-      key: '7',
-      name: 'John Brown3',
-    }, {
-      key: '8',
-      name: 'Jim Green3',
-    }, {
-      key: '9',
-      name: 'Joe Black3',
-    }
-    ];
+
+    // const data = [{
+    //   "parentId": "0",
+    //   "_id": "5c2ed631f352726338607046",
+    //   "name": "分类001",
+    //   "__v": 0
+    // },
+    //   {
+    //     "parentId": "0",
+    //     "_id": "5c2ed647f352726338607047",
+    //     "name": "分类2",
+    //     "__v": 0
+    //   },
+    //   {
+    //     "parentId": "0",
+    //     "_id": "5c2ed64cf352726338607048",
+    //     "name": "1分类3",
+    //     "__v": 0
+    //   }
+    // ];
+    const {categories} = this.state;
 
 
     return(
@@ -63,15 +84,16 @@ export default class Category extends Component{
 
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={categories}
             bordered
-            pagination={{pageSize:3,
+            pagination={{pageSize:9,
               showSizeChanger:true,
               pageSizeOptions:['3','6','9','12'],
-              showQuickJumper:true,
+              // showQuickJumper:true,
             }}
-          />
+            rowKey='_id'
 
+          />
 
         </Card>
       </div>

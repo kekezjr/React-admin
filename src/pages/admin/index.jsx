@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import {Row,Col} from 'antd';
+import {Layout} from 'antd';
 import {Route,Switch,Redirect} from 'react-router-dom'
 
-
 //引入文件
-import './index.less';
 import LeftNav from '../../components/left-nav';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
@@ -19,6 +17,8 @@ import Pie from '../charts/pie';
 // import {getItem} from '../../utils/storageUtils'
 import MemoryUtils from '../../utils/memoryUtils';
 
+const {Sider, Content} = Layout;
+
 export default class Admin extends Component {
 
   render () {
@@ -29,15 +29,14 @@ export default class Admin extends Component {
      return <Redirect to='/login' />
     }
 
-
     return (
-      <Row className="admin-row">
-        <Col span={4}>
+      <Layout style={{minHeight: '100vh'}}>
+        <Sider>
           <LeftNav />
-        </Col>
-        <Col span={20}>
+        </Sider>
+        <Layout>
           <Header />
-          <div className="admin-content">
+          <Content style={{margin: 20}}>
             <Switch>
               <Route path='/home' component={Home} />
               <Route path='/category' component={Category} />
@@ -49,10 +48,10 @@ export default class Admin extends Component {
               <Route path='/charts/pie' component={Pie}/>
               <Redirect to='/home'/>
             </Switch>
-          </div>
+          </Content>
           <Footer />
-        </Col>
-      </Row>
+        </Layout>
+      </Layout>
     )
   }
 }

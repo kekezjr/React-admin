@@ -42,4 +42,7 @@ export const Weather = city =>{
       }
     )
   })
-}
+};
+
+//请求category数据
+export const reqCategory = parentId => ajax(prefix + '/manage/category/list',{parentId});
