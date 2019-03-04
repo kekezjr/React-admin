@@ -8,7 +8,7 @@ import Header from '../../components/header';
 import Footer from '../../components/footer';
 import Home from '../home';
 import Category from '../category';
-import Product from '../product';
+import Product from '../product/product';
 import User from '../user';
 import Role from '../role';
 import Bar from '../charts/bar';
@@ -30,11 +30,13 @@ export default class Admin extends Component {
     }
 
     return (
-      <Layout style={{minHeight: '100vh'}}>
-        <Sider>
+      <Layout>
+        <Sider style={{
+          overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
+        }}>
           <LeftNav />
         </Sider>
-        <Layout>
+        <Layout style={{ marginLeft: 200 }}>
           <Header />
           <Content style={{margin: 20}}>
             <Switch>

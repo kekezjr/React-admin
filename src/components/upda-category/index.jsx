@@ -36,9 +36,6 @@ class UpdataCategoryNameForm extends Component{
               }
             )(<Input />)
           }
-
-
-
         </Item>
       </Form>
 

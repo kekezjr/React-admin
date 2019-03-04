@@ -27,7 +27,7 @@ class LeftNav extends Component{
       if(item.children){
         //得到当前路径
         const {pathname} = this.props.location;
-        const result = item.children.find(item => item.key === pathname);
+        const result = item.children.find(item => pathname.indexOf(item.key) === 0);
         if(result){
           this.open = item.key;
         }
@@ -51,7 +51,12 @@ class LeftNav extends Component{
   }
 
   render(){
-    const {pathname} = this.props.location;
+    let {pathname} = this.props.location;
+
+    if(/^\/product/.test(pathname)){
+      pathname = '/product';
+    }
+
     return(
       <div className="left-nav">
         <header>
